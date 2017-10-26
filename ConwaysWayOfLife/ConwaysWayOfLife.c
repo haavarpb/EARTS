@@ -1,25 +1,25 @@
 #include "ConwaysWayOfLife.h"
 
-cell_t **cellArray = NULL;
+int **cellArray = NULL; // This is the actual board. A cell is alive if 1, dead otherwise
 
-void evaluateCells(cell_t **cellArray){
+void evaluateCells(int **cellArray){
 	for(int row = 0; row < cellArrayRows; row++){
 		for(int col = 0; col < cellArrayCols; col++){
 			int numNeighbours = countNeighbours(cellArray, row, col);
-			if (cellArray[row][col].isAlive){
+			if (cellArray[row][col]){
 				if (numNeighbours < 2){
-					cellArray[row][col].isAlive = 0;
+					cellArray[row][col] = 0;
 				}
 				else if (numNeighbours >= 2 && numNeighbours <= 3){
 					continue;							
 				}
 				else if (numNeighbours > 3){
-					cellArray[row][col].isAlive = 0;
+					cellArray[row][col] = 0;
 				}
 			}
 			else{
 				if(numNeighbours == 3){
-					cellArray[row][col].isAlive = 1;
+					cellArray[row][col] = 1;
 				}
 			}
 			
@@ -27,12 +27,12 @@ void evaluateCells(cell_t **cellArray){
 	}
 }
 
-int countNeighbours(cell_t **cellArray, int row, int col){
+int countNeighbours(int **cellArray, int row, int col){
 	int numNeighbours = 0;
 	for(int offsetRow = -1; offsetRow <= 1; offsetRow++){
 		for(int offsetCol = -1; offsetCol <= 1; offsetCol++){
 			if (indexInRange(row + offsetRow, col + offsetCol)){
-				if (cellArray[row + offsetRow][col + offsetCol].isAlive){
+				if (cellArray[row + offsetRow][col + offsetCol]){
 					numNeighbours++;
 				}
 			}
@@ -56,26 +56,24 @@ int indexInRange(int indexRow, int indexCol){
 	}
 }
 
-void mallocCellArray(cell_t **cellArray){
-	cellArray = (cell_t **) malloc(cellArrayRows*sizeof(cell_t *));
+void mallocCellArray(int **cellArray){
+	cellArray = (int **) malloc(cellArrayRows*sizeof(int *));
 	for(int row = 0; row < cellArrayRows; row++){
-		cellArray[row] = (cell_t *) malloc(cellArrayCols*sizeof(cell_t));
+		cellArray[row] = (int *) malloc(cellArrayCols*sizeof(int));
 	}
 }
-void freeCellArray(cell_t **cellArray){
+void freeCellArray(int **cellArray){
 	for(int row = 0; row < cellArrayRows; row++){
 		free(cellArray[row]);
 	}
 	free(cellArray);
 }
-void instantiateCellArray(cell_t **cellArray, cellArrayPresets_t preset){
+void instantiateCellArray(int **cellArray, cellArrayPresets_t preset){
 	cellArrayRows = getScreenSize()->maxY;
 	cellArrayCols = getScreenSize()->maxX;
 	for(int row = 0; row < cellArrayRows; row++){
 		for(int col = 0; col < cellArrayCols; col++){
-			cellArray[row][col].isAlive = 0;
-			cellArray[row][col].posX = col;
-			cellArray[row][col].posY = row;
+			cellArray[row][col] = 0;
 		}
 	}
 
@@ -84,7 +82,7 @@ void instantiateCellArray(cell_t **cellArray, cellArrayPresets_t preset){
 		for(int offsetRow = 0; offsetRow < 3; offsetRow++){
 			for (int offsetCol = 0; offsetCol < 3; offsetCol++){
 				if (rand() % 100 > 50){
-					cellArray[cellArrayRows/2 + offsetRow][cellArrayCols/2 + offsetCol].isAlive = 1;
+					cellArray[cellArrayRows/2 + offsetRow][cellArrayCols/2 + offsetCol] = 1;
 				}
 			}
 		}

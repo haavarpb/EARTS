@@ -19,7 +19,7 @@ void setScreenSize(struct scrSize *screenSize){
 	screenSize->maxX = x;
 }
 
-void writeToScreen(cell_t **cellArray){
+void writeToScreen(int **cellArray){
 	addchar(ACS_BLOCK);
 }
 

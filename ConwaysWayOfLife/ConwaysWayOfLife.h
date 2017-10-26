@@ -11,14 +11,17 @@ int cellArrayCols;
 
 typedef enum{
 	Random,
+	Preset1,
+	Preset2
+	// etc...
 } cellArrayPresets_t;
 
-void evaluateCell(cell_t **cellArray);
-int countNeighbours(cell_t **cellArray, int row, int col);
+void evaluateCell(int **cellArray);
+int countNeighbours(int **cellArray, int row, int col);
 int indexInRange(int indexRow, int indexCol);
 
-void mallocCellArray(cell_t **cellArray);
-void freeCellArray(cell_t **cellArray);
-void instantiateCellArray(cell_t **cellArray, cellArrayPresets_t preset);
+void mallocCellArray(int **cellArray);
+void freeCellArray(int **cellArray);
+void instantiateCellArray(int **cellArray, cellArrayPresets_t preset);
 
 #endif /* CONWAYSWAYOFLIFE_H_ */
