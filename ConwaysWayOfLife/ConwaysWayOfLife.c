@@ -90,3 +90,8 @@ void instantiateCellArray(int **cellArray, cellArrayPresets_t preset){
 
 	// Add more presets
 }
+
+/* Public functions */
+
+int getCellArrayRows(){return cellArrayRows;}
+int getCellArrayCols(){return cellArrayCols;}

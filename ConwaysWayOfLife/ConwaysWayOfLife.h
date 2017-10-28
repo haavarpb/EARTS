@@ -6,22 +6,23 @@
 #include "GUI.h"
 #include "Cell_t.h"
 
-int cellArrayRows;
-int cellArrayCols;
+static int cellArrayRows;
+static int cellArrayCols;
 
 typedef enum{
 	Random,
 	Preset1,
-	Preset2
-	// etc...
+	Preset2 // etc...
 } cellArrayPresets_t;
 
-void evaluateCell(int **cellArray);
+void evaluateCells(int **cellArray);
 int countNeighbours(int **cellArray, int row, int col);
 int indexInRange(int indexRow, int indexCol);
-
 void mallocCellArray(int **cellArray);
 void freeCellArray(int **cellArray);
 void instantiateCellArray(int **cellArray, cellArrayPresets_t preset);
+int getCellArrayRows();
+int getCellArrayCols();
+
 
 #endif /* CONWAYSWAYOFLIFE_H_ */

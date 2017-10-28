@@ -5,10 +5,11 @@
 
 
 int main(){
-	instantiateCellArray(cellArray, 0)
+	instantiateCellArray(cellArray, 0);
 	initializeWindow();
 	writeToScreen();
 
 	terminateWindow();
+
 	return 0;
 }
