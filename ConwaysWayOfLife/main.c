@@ -5,7 +5,7 @@
 
 
 int main(){
-	instantiateCellArray(cellArray, preset)
+	instantiateCellArray(cellArray, 0)
 	initializeWindow();
 	writeToScreen();
 
