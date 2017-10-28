@@ -3,7 +3,7 @@
 
 #include <stdio.h>
 #include <stdlib.h>
-#include <pthread.h>
 
+int readInput();
 
 #endif /* IO_H_ */

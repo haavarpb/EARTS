@@ -16,6 +16,7 @@ typedef enum{
 } cellArrayPresets_t;
 
 void evaluateCells(int **cellArray);
+
 int countNeighbours(int **cellArray, int row, int col);
 int indexInRange(int indexRow, int indexCol);
 void mallocCellArray(int **cellArray);
