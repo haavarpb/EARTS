@@ -14,7 +14,7 @@ struct scrSize{
 struct scrSize * getScreenSize();
 void setScreenSize(struct scrSize *);
 void initializeWindow();
-void updatingWindow();
+void updateWindow();
 void writeGridToScreen(int **cellArray,int cellArrayRows,int cellArrayCols);
 void writeTextToScreen(struct scrSize *screenSize, char *text);
 void terminateWindow();

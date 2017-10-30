@@ -1,8 +1,6 @@
 #include "ConwaysWayOfLife.h"
 
-int **cellArray = NULL; // This is the actual board. A cell is alive if 1, dead otherwise
-
-void evaluateCells(int **cellArray){
+void evaluateCells(){
 	for(int row = 0; row < cellArrayRows; row++){
 		for(int col = 0; col < cellArrayCols; col++){
 			int numNeighbours = countNeighbours(cellArray, row, col);
@@ -22,12 +20,12 @@ void evaluateCells(int **cellArray){
 					cellArray[row][col] = 1;
 				}
 			}
-			
+			writeGridToScreen(cellArray, cellArrayRows, cellArrayCols);
 		}
 	}
 }
 
-int countNeighbours(int **cellArray, int row, int col){
+int countNeighbours(int row, int col){
 	int numNeighbours = 0;
 	for(int offsetRow = -1; offsetRow <= 1; offsetRow++){
 		for(int offsetCol = -1; offsetCol <= 1; offsetCol++){
@@ -56,39 +54,64 @@ int indexInRange(int indexRow, int indexCol){
 	}
 }
 
-void mallocCellArray(int **cellArray){
+void mallocCellArray(){
 	cellArray = (int **) malloc(cellArrayRows*sizeof(int *));
 	for(int row = 0; row < cellArrayRows; row++){
 		cellArray[row] = (int *) malloc(cellArrayCols*sizeof(int));
 	}
 }
-void freeCellArray(int **cellArray){
+void freeCellArray(){
 	for(int row = 0; row < cellArrayRows; row++){
 		free(cellArray[row]);
 	}
 	free(cellArray);
 }
-void instantiateCellArray(int **cellArray, cellArrayPresets_t preset){
+void instantiateCellArray(){
 	cellArrayRows = getScreenSize()->maxY;
 	cellArrayCols = getScreenSize()->maxX;
+	mallocCellArray();
 	for(int row = 0; row < cellArrayRows; row++){
 		for(int col = 0; col < cellArrayCols; col++){
 			cellArray[row][col] = 0;
 		}
 	}
 
-	if (preset == Random){
+
+void insertPreset(cellArrayPresets_t preset){
+	if (preset == e_Random){
 		srand(time(NULL));
-		for(int offsetRow = 0; offsetRow < 3; offsetRow++){
-			for (int offsetCol = 0; offsetCol < 3; offsetCol++){
+		for(int offsetRow = 0; offsetRow < 5; offsetRow++){
+			for (int offsetCol = 0; offsetCol < 10; offsetCol++){
 				if (rand() % 100 > 50){
 					cellArray[cellArrayRows/2 + offsetRow][cellArrayCols/2 + offsetCol] = 1;
 				}
 			}
 		}
 	}
+	else{
+		copyPresetToCellArray(preset);
+	}
+}
 
-	// Add more presets
+void copyPresetToCellArray(cellArrayPresets_t preset){
+	int **temp;
+	if (preset == e_rPentomino){
+		temp = &rPentomino;
+	}
+	else if(preset == e_dieHard){
+		temp = &dieHard;
+	}
+	else if(preset == e_acorn){
+		temp = &acorn;
+	}
+	int tempSizeRow = sizeof(temp) / sizeof(temp[0]);
+	int tempSizeCol = sizeof(temp[0])/tempSizeRow;
+
+	for (int offsetR = 0; offsetR < tempSizeRow; offsetR++){
+		for (int offsetC = 0; offsetC < tempSizeCol; offsetC++){
+			cellArray[cellArrayRows/2 + offsetR][cellArrayCols/2 + offsetC] = temp[offsetR][offsetC];
+		}
+	}
 }
 
 /* Public functions */

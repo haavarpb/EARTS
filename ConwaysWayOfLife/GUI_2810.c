@@ -1,8 +1,6 @@
 #include "GUI.h"
-#include <ncurses.h>
+#include <curses.h>
 #include <string.h>
-
-
 
 struct scrSize *screenSize = NULL;
 
@@ -35,7 +33,8 @@ void writeGridToScreen(int **cellArray,int cellArrayRows,int cellArrayCols){
 			if(col == cellArrayRows-1){
 				printw("\n");
 			}
-	refresh();
+		}
+	updateWindow();
 }
 
 void updateWindow(){

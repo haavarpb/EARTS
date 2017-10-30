@@ -1,5 +1,4 @@
 #include "FiniteStateMachine.h"
-
 #include "ConwaysWayOfLife.h"
 
 void run(){
@@ -7,19 +6,22 @@ void run(){
 		switch(state){
 			case INIT :
 				initializeWindow();
-
+				instantiateCellArray();
+				printLogo();
+				sleep(1);
 				state = MENU;
-				break;
-			case MENU :
-				// Wait for input
 				continue;
+			case MENU :
+				parseInput();
+				break;
 			case GAME :
 				evaluateCells();
 				break;
 			case QUIT :
+				freeCellArray();
+				terminateWindow();
 				break;
 		}
-		parseInput(); // MENU FUNCTION
 	}
 }
 
