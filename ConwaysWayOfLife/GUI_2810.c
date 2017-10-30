@@ -1,6 +1,12 @@
 #include "GUI.h"
+#include <ncurses.h>
+#include <string.h>
+
+int **cellArray = NULL;
 
 struct scrSize *screenSize = NULL;
+int cellArrayRows = 10;
+int cellArrayCols = 10;
 
 void initializeWindow(){
 	initscr();
@@ -19,26 +25,32 @@ void setScreenSize(struct scrSize *screenSize){
 	screenSize->maxX = x;
 }
 
-void writeGridToScreen(int **cellArray, cellArrayRows, cellArrayCols){
+void writeGridToScreen(int **cellArray,int cellArrayRows,int cellArrayCols){
 	for(int row = 0; row < cellArrayRows; row++){
 		for(int col = 0; col < cellArrayCols; col++){ 
-			if (cellArray[row][col] == "1"){
-				addchar("0x25A0");
+			if (cellArray[row][col] == 1){
+				addch("0x25A0");
 			}
 			else {
-				addchar("0x25A1");
+				addch("0x25A1");
+			}
+			if(col == cellArrayRows-1){
+				printw("\n");
 			}
 	refresh();
 }
 
-void writeTextToScreen(struct scrSize *screenSize, char *text){
-		textLength = strlen(text);
-		mvprintw((screenSize->maxY)/2, (screenSize->maxX)/2 - textLength/2 , text);	
-		refresh();
-
+void updateWindow(){
+	sleep(0.5);
+	erase();
 }
 
-q
+void writeTextToScreen(struct scrSize *screenSize, char *text){
+		int textLength = strlen(text);
+		mvprintw((screenSize->maxY)/2, (screenSize->maxX)/2 - textLength/2 , text);	
+		refresh();
+}
+
 
 void terminateWindow(){
 	endwin();
