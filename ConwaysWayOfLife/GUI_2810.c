@@ -5,8 +5,6 @@
 
 
 struct scrSize *screenSize = NULL;
-int cellArrayRows = 10;
-int cellArrayCols = 10;
 
 void initializeWindow(){
 	initscr();
