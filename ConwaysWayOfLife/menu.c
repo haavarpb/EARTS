@@ -4,6 +4,7 @@ void parseInput(){
 	case 'q': // quit the entire game from anywhere
 		state = QUIT;
 		break;
+	case 'r':
 	default :
 	}
 }

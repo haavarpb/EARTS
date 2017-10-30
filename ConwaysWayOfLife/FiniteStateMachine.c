@@ -6,16 +6,20 @@ void run(){
 	while(1){
 		switch(state){
 			case INIT :
+				initializeWindow();
+
+				state = MENU;
 				break;
 			case MENU :
-				break;
+				// Wait for input
+				continue;
 			case GAME :
 				evaluateCells();
 				break;
 			case QUIT :
 				break;
 		}
-		parseInput();
+		parseInput(); // MENU FUNCTION
 	}
 }
 

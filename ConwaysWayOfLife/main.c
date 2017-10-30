@@ -5,11 +5,6 @@
 
 
 int main(){
-	instantiateCellArray(cellArray, 0);
-	initializeWindow();
-	writeToScreen();
-
-	terminateWindow();
-
+	run();
 	return 0;
 }
