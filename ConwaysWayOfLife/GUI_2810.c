@@ -2,7 +2,7 @@
 #include <ncurses.h>
 #include <string.h>
 
-int **cellArray = NULL;
+
 
 struct scrSize *screenSize = NULL;
 int cellArrayRows = 10;
