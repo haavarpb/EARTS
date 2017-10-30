@@ -1,8 +1,4 @@
-#include <stdio.h>
-#include <stddef.h>
-#include "ConwaysWayOfLife.h"
-#include "GUI.h"
-
+#include "FiniteStateMachine.h"
 
 int main(){
 	run();

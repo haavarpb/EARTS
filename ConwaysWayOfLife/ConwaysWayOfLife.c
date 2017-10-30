@@ -1,9 +1,31 @@
 #include "ConwaysWayOfLife.h"
 
+int cellArrayRows;
+int cellArrayCols;
+int **cellArray = NULL;
+
+int rPentomino[5][5] = { {0, 0, 0, 0, 0},
+						 {0, 0, 1, 1, 0},
+						 {0, 1, 1, 0, 0},
+						 {0, 0, 1, 0, 0},
+						 {0, 0, 0, 0, 0}};
+
+int dieHard[5][10] = {	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
+								{0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+								{0, 1, 1, 0, 0, 0, 0, 0, 0, 0},
+								{0, 0, 1, 0, 0, 0, 1, 1, 1, 0},
+								{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+
+int acorn[5][10] = {	{0, 0, 0, 0, 0, 0, 0, 0, 0},
+							{0, 0, 1, 0, 0, 0, 0, 0, 0},
+							{0, 0, 0, 0, 1, 0, 0, 0, 0},
+							{0, 1, 1, 0, 0, 1, 1, 1, 0},
+							{0, 0, 0, 0, 0, 0, 0, 0, 0}};
+
 void evaluateCells(){
 	for(int row = 0; row < cellArrayRows; row++){
 		for(int col = 0; col < cellArrayCols; col++){
-			int numNeighbours = countNeighbours(cellArray, row, col);
+			int numNeighbours = countNeighbours(row, col);
 			if (cellArray[row][col]){
 				if (numNeighbours < 2){
 					cellArray[row][col] = 0;
@@ -75,6 +97,7 @@ void instantiateCellArray(){
 			cellArray[row][col] = 0;
 		}
 	}
+}
 
 
 void insertPreset(cellArrayPresets_t preset){
@@ -96,13 +119,13 @@ void insertPreset(cellArrayPresets_t preset){
 void copyPresetToCellArray(cellArrayPresets_t preset){
 	int **temp;
 	if (preset == e_rPentomino){
-		temp = &rPentomino;
+		temp = rPentomino;
 	}
 	else if(preset == e_dieHard){
-		temp = &dieHard;
+		temp = dieHard;
 	}
 	else if(preset == e_acorn){
-		temp = &acorn;
+		temp = acorn;
 	}
 	int tempSizeRow = sizeof(temp) / sizeof(temp[0]);
 	int tempSizeCol = sizeof(temp[0])/tempSizeRow;

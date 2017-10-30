@@ -1,18 +1,19 @@
 #include "FiniteStateMachine.h"
-#include "ConwaysWayOfLife.h"
+
+state_t state = INIT;
 
 void run(){
 	while(1){
 		switch(state){
 			case INIT :
 				initializeWindow();
+				printf("HELLO\n");
 				instantiateCellArray();
-				printLogo();
-				sleep(1);
+				printHomepage();
 				state = MENU;
 				continue;
 			case MENU :
-				parseInput();
+				choose_presets();
 				break;
 			case GAME :
 				evaluateCells();

@@ -1,6 +1,8 @@
 #ifndef FINITESTATEMACHINE_H_
 #define FINITESTATEMACHINE_H_
 
+#include "menu.h"
+
 typedef enum {
 	INIT,
 	MENU,
@@ -8,7 +10,7 @@ typedef enum {
 	QUIT
 } state_t;
 
-static state_t state = INIT;
+extern state_t state;
 
 void run();
 

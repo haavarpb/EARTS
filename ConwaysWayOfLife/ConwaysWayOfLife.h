@@ -4,11 +4,10 @@
 #include <stdlib.h>
 #include <time.h>
 #include "GUI.h"
-#include "Cell_t.h"
 
-static int cellArrayRows;
-static int cellArrayCols;
-static int **cellArray = NULL; // This is the actual board. A cell is alive if 1, dead otherwise
+extern int cellArrayRows;
+extern int cellArrayCols;
+extern int **cellArray;
 
 typedef enum{
 	e_Random,
@@ -17,23 +16,11 @@ typedef enum{
 	e_acorn
 } cellArrayPresets_t;
 
-static int rPentomino[5][5] = { {0, 0, 0, 0, 0},
-								{0, 0, 1, 1, 0},
-								{0, 1, 1, 0, 0},
-								{0, 0, 1, 0, 0},
-								{0, 0, 0, 0, 0}};
+extern int rPentomino[5][5];
 
-static int dieHard[5][10] = {	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-								{0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
-								{0, 1, 1, 0, 0, 0, 0, 0, 0, 0},
-								{0, 0, 1, 0, 0, 0, 1, 1, 1, 0},
-								{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+extern int dieHard[5][10];
 
-static int acorn[5][10] = {	{0, 0, 0, 0, 0, 0, 0, 0, 0},
-							{0, 0, 1, 0, 0, 0, 0, 0, 0},
-							{0, 0, 0, 0, 1, 0, 0, 0, 0},
-							{0, 1, 1, 0, 0, 1, 1, 1, 0},
-							{0, 0, 0, 0, 0, 0, 0, 0, 0}};
+extern int acorn[5][10];
 
 void evaluateCells();
 
