@@ -2,7 +2,9 @@
 #define GUI_H_
 #include <unistd.h>
 #include <stdio.h>
-#include <curses.h>
+#include <ncurses.h>
+
+
 
 struct scrSize{
 	int maxX;
@@ -12,7 +14,9 @@ struct scrSize{
 struct scrSize * getScreenSize();
 void setScreenSize(struct scrSize *);
 void initializeWindow();
-void writeToScreen(int **cellArray);
+void updatingWindow();
+void writeGridToScreen(int **cellArray,int cellArrayRows,int cellArrayCols);
+void writeTextToScreen(struct scrSize *screenSize, char *text);
 void terminateWindow();
 
 #endif /* GUI_H_ */
