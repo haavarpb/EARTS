@@ -5,9 +5,12 @@
 #include <time.h>
 #include "GUI.h"
 
+#define MASKSIZE 3
+
 extern int cellArrayRows;
 extern int cellArrayCols;
 extern int **cellArray;
+extern int **copyArray;
 
 typedef enum{
 	e_Random,
@@ -24,7 +27,7 @@ extern int acorn[5][10];
 
 void evaluateCells();
 
-int countNeighbours(int row, int col);
+int countNeighbours(int **array, int indexRow, int indexCol, int sizeRow, int sizeCol);
 int indexInRange(int indexRow, int indexCol);
 void mallocCellArray();
 void freeCellArray();
@@ -32,8 +35,5 @@ void instantiateCellArray();
 int getCellArrayRows();
 int getCellArrayCols();
 void insertPreset(cellArrayPresets_t preset);
-void copyPresetToCellArray(int *pre[]);
-int getCellRows();
-int getCellCols();
 
 #endif /* CONWAYSWAYOFLIFE_H_ */

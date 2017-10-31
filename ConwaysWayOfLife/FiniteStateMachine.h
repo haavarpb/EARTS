@@ -13,6 +13,7 @@ typedef enum {
 extern state_t state;
 
 void run();
+void life(int **a,int n,int m);
 
 /* Public functions*/
 

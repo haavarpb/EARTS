@@ -1,26 +1,27 @@
 #include "GUI.h"
 
-scrSize *screenSize = NULL;
+// CODER 2
+
+scrSize screenSize;
 
 void initializeWindow(){
 	initscr();
-	//setScreenSize();
+	setScreenSize();
 	noecho();
-	clearWindow();
 }
 
-scrSize *getScreenSize(){
+scrSize getScreenSize(){
 	return screenSize;
 }
 
 void setScreenSize(){
-	getmaxyx(stdscr, screenSize->maxY, screenSize->maxX);
+	getmaxyx(stdscr, screenSize.maxY, screenSize.maxX);
 }
 
-void writeGridToScreen(int **cellArray,int cellArrayRows,int cellArrayCols){
-	for(int row = 0; row < cellArrayRows; row++){
-		for(int col = 0; col < cellArrayCols; col++){ 
-			if (cellArray[row][col] == 1){
+void writeGridToScreen(int **array,int sizeRows,int sizeCols){
+	for(int row = 0; row < sizeRows; row++){
+		for(int col = 0; col < sizeCols; col++){
+			if (array[row][col] == 1){
 				mvaddch(row, col, '#');
 			}
 			else {
@@ -28,16 +29,13 @@ void writeGridToScreen(int **cellArray,int cellArrayRows,int cellArrayCols){
 			}
 		}
 	}
-}
-
-void clearWindow(){
-	erase();
+	refresh();
 }
 
 void writeTextToScreen(char* text){
-	int textLength = strlen(text);
-	mvprintw((getCellCols())/2, (getCellRows())/2 - textLength/2 , text);
+	mvprintw(0, 0 , text);
 	refresh();
+	sleep(1);
 }
 
 

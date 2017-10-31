@@ -1,5 +1,7 @@
 #include "FiniteStateMachine.h"
 
+// CODER 3
+
 state_t state = INIT;
 
 void run(){
@@ -15,7 +17,7 @@ void run(){
 				choose_presets();
 				break;
 			case GAME :
-				evaluateCells();
+				evaluate();
 				sleep(1);
 				break;
 			case QUIT :

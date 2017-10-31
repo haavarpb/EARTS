@@ -11,13 +11,12 @@ typedef struct{
 	int maxY;
 }scrSize;
 
-extern scrSize *screenSize;
+extern scrSize screenSize;
 
-scrSize *getScreenSize();
+scrSize getScreenSize();
 void setScreenSize();
 void initializeWindow();
-void clearWindow();
-void writeGridToScreen(int **cellArray,int cellArrayRows,int cellArrayCols);
+void writeGridToScreen(int **array,int sizeRows,int sizeCols);
 void writeTextToScreen(char *text);
 void terminateWindow();
 

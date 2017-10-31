@@ -1,8 +1,11 @@
 #include "ConwaysWayOfLife.h"
 
+// CODER 3
+
 int cellArrayRows;
 int cellArrayCols;
 int **cellArray = NULL;
+int **copyArray = NULL;
 
 int rPentomino[5][5] = { {0, 0, 0, 0, 0},
 						 {0, 0, 1, 1, 0},
@@ -25,50 +28,59 @@ int acorn[5][10] = {	{0, 0, 0, 0, 0, 0, 0, 0, 0},
 void evaluateCells(){
 	for(int row = 0; row < cellArrayRows; row++){
 		for(int col = 0; col < cellArrayCols; col++){
-			int numNeighbours = countNeighbours(row, col);
+			int numNeighbours = countNeighbours(cellArray, row, col, cellArrayRows, cellArrayCols);
 			if (cellArray[row][col]){
 				if (numNeighbours < 2){
-					cellArray[row][col] = 0;
+					copyArray[row][col] = 0;
 				}
 				else if (numNeighbours >= 2 && numNeighbours <= 3){
 					continue;							
 				}
 				else if (numNeighbours > 3){
-					cellArray[row][col] = 0;
+					copyArray[row][col] = 0;
 				}
 			}
 			else{
 				if(numNeighbours == 3){
-					cellArray[row][col] = 1;
+					copyArray[row][col] = 1;
 				}
+			 cellArray[row][col] = 0;
 			}
-			writeGridToScreen(cellArray, cellArrayRows, cellArrayCols);
 		}
 	}
+
+	//Swap the pointers of the two tables
+	int **temp = cellArray;
+	cellArray = copyArray;
+	copyArray = temp;
+
+	writeGridToScreen(cellArray, cellArrayRows, cellArrayCols);
 }
 
-int countNeighbours(int row, int col){
-	int numNeighbours = 0;
-	for(int offsetRow = -1; offsetRow <= 1; offsetRow++){
-		for(int offsetCol = -1; offsetCol <= 1; offsetCol++){
-			if (indexInRange(row + offsetRow, col + offsetCol)){
-				if (cellArray[row + offsetRow][col + offsetCol]){
-					numNeighbours++;
-				}
-			}
-			else{
-				continue;
-			}
-		}
-	}
-	return numNeighbours;
+int countNeighbours(int **mat,int i, int j, int n,int m)
+{
+    int counter=0,row_index=0,column_index=0;
+    for(row_index=i-1;row_index<=i+1;row_index++)
+    {
+        for(column_index=j-1;column_index<=j+1;column_index++)
+        {
+            if((row_index>=0)&&(row_index<n)&&(column_index>=0)&&(column_index<m))
+            {
+                if((mat[row_index][column_index]==1)||(mat[row_index][column_index]==2))
+                    counter++;
+                if((row_index==i)&&(column_index==j)&&(mat[i][j]==1))
+                    counter--;
+            }
+        }
+    }
+    return counter;
 }
 
 int indexInRange(int indexRow, int indexCol){
-	if (indexRow < 0 || indexRow >= cellArrayRows){
+	if (indexRow < 0 || indexRow >= MASKSIZE) {
 		return 0;
 	}
-	else if (indexCol < 0 || indexCol >= cellArrayCols){
+	else if (indexCol < 0 || indexCol >= MASKSIZE){
 		return 0;
 	}
 	else{
@@ -81,6 +93,11 @@ void mallocCellArray(){
 	for(int row = 0; row < cellArrayRows; row++){
 		cellArray[row] = (int *) malloc(cellArrayCols*sizeof(int));
 	}
+
+	copyArray = (int **) malloc(cellArrayRows*sizeof(int *));
+		for(int row = 0; row < cellArrayRows; row++){
+			copyArray[row] = (int *) malloc(cellArrayCols*sizeof(int));
+		}
 }
 
 void freeCellArray(){
@@ -88,28 +105,28 @@ void freeCellArray(){
 		free(cellArray[row]);
 	}
 	free(cellArray);
+	for(int row = 0; row < cellArrayRows; row++){
+		free(copyArray[row]);
+	}
+	free(copyArray);
 }
-void instantiateCellArray(){
-	//cellArrayRows = getScreenSize()->maxY;
-	//cellArrayCols = getScreenSize()->maxX;
-	cellArrayRows = 30;
-	cellArrayCols = 50;
+void instantiateCellArray(cellArrayPresets_t preset){
+	cellArrayRows = getScreenSize().maxY;
+	cellArrayCols = getScreenSize().maxX;
 	mallocCellArray();
 	for(int row = 0; row < cellArrayRows; row++){
 		for(int col = 0; col < cellArrayCols; col++){
 			cellArray[row][col] = 0;
+			copyArray[row][col] = 0;
 		}
 	}
 }
 
-int getCellRows(){return cellArrayRows;}
-int getCellCols(){return cellArrayCols;}
-
 void insertPreset(cellArrayPresets_t preset){
 	if (preset == e_Random){
 		srand(time(NULL));
-		for(int offsetRow = 0; offsetRow < 5; offsetRow++){
-			for (int offsetCol = 0; offsetCol < 10; offsetCol++){
+		for(int offsetRow = 0; offsetRow < cellArrayRows; offsetRow++){
+			for (int offsetCol = 0; offsetCol < cellArrayCols; offsetCol++){
 				if (rand() % 100 > 50){
 					cellArray[cellArrayRows/2 + offsetRow][cellArrayCols/2 + offsetCol] = 1;
 				}
@@ -145,7 +162,7 @@ void insertPreset(cellArrayPresets_t preset){
 			}
 		}
 	}
-	writeGridToScreen(cellArray, cellArrayRows, cellArrayCols);
+	writeGridToScreen(cellArray,  cellArrayRows, cellArrayCols);
 }
 
 /* Public functions */
