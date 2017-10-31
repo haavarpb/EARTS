@@ -1,0 +1,4 @@
+1. setScreenSize() does not work properly
+2. clearWindow working as intended?
+3. 1. causes problems in instantiateCellArray
+4. writeTextToScreen crashes if textlength is greater than screenSize.

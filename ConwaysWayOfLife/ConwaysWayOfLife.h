@@ -32,6 +32,8 @@ void instantiateCellArray();
 int getCellArrayRows();
 int getCellArrayCols();
 void insertPreset(cellArrayPresets_t preset);
-void copyPresetToCellArray(cellArrayPresets_t preset);
+void copyPresetToCellArray(int *pre[]);
+int getCellRows();
+int getCellCols();
 
 #endif /* CONWAYSWAYOFLIFE_H_ */

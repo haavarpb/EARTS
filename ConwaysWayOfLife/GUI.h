@@ -4,6 +4,7 @@
 #include <string.h>
 #include <stdio.h>
 #include <curses.h>
+#include "ConwaysWayOfLife.h"
 
 typedef struct{
 	int maxX;
@@ -15,7 +16,7 @@ extern scrSize *screenSize;
 scrSize *getScreenSize();
 void setScreenSize();
 void initializeWindow();
-void updateWindow();
+void clearWindow();
 void writeGridToScreen(int **cellArray,int cellArrayRows,int cellArrayCols);
 void writeTextToScreen(char *text);
 void terminateWindow();

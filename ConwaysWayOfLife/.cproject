@@ -35,7 +35,7 @@
 							</tool>
 							<tool id="cdt.managedbuild.tool.gnu.c.linker.mingw.exe.debug.180531561" name="MinGW C Linker" superClass="cdt.managedbuild.tool.gnu.c.linker.mingw.exe.debug">
 								<option id="gnu.c.link.option.libs.1159807010" name="Libraries (-l)" superClass="gnu.c.link.option.libs" useByScannerDiscovery="false" valueType="libs">
-									<listOptionValue builtIn="false" value="ncursesw"/>
+									<listOptionValue builtIn="false" value="pdcurses"/>
 								</option>
 								<option id="gnu.c.link.option.noshared.803933149" name="No shared libraries (-static)" superClass="gnu.c.link.option.noshared" useByScannerDiscovery="false" value="false" valueType="boolean"/>
 								<option id="gnu.c.link.option.ldflags.1177129575" name="Linker flags" superClass="gnu.c.link.option.ldflags" useByScannerDiscovery="false" value="-static-libgcc" valueType="string"/>

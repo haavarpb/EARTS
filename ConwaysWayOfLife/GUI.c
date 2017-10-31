@@ -4,12 +4,9 @@ scrSize *screenSize = NULL;
 
 void initializeWindow(){
 	initscr();
-	printf("initscr\n");
-	setScreenSize();
-	printf("screen size set\n");
+	//setScreenSize();
 	noecho();
-	updateWindow();
-	printf("init done\n");
+	clearWindow();
 }
 
 scrSize *getScreenSize(){
@@ -17,38 +14,30 @@ scrSize *getScreenSize(){
 }
 
 void setScreenSize(){
-	int x, y;
-	getmaxyx(stdscr, y, x);
-	screenSize->maxY = y;
-	screenSize->maxX = x;
+	getmaxyx(stdscr, screenSize->maxY, screenSize->maxX);
 }
 
 void writeGridToScreen(int **cellArray,int cellArrayRows,int cellArrayCols){
 	for(int row = 0; row < cellArrayRows; row++){
 		for(int col = 0; col < cellArrayCols; col++){ 
 			if (cellArray[row][col] == 1){
-				addch('#');
+				mvaddch(row, col, '#');
 			}
 			else {
-				addch(' ');
-			}
-			if(col == cellArrayRows-1){
-				printw("\n");
+				mvaddch(row, col, ' ');
 			}
 		}
 	}
-	updateWindow();
 }
 
-void updateWindow(){
-	sleep(0.5);
+void clearWindow(){
 	erase();
 }
 
 void writeTextToScreen(char* text){
-		int textLength = strlen(text);
-		mvprintw((screenSize->maxY)/2, (screenSize->maxX)/2 - textLength/2 , text);	
-		updateWindow();
+	int textLength = strlen(text);
+	mvprintw((getCellCols())/2, (getCellRows())/2 - textLength/2 , text);
+	refresh();
 }
 
 

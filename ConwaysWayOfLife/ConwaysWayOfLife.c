@@ -11,16 +11,16 @@ int rPentomino[5][5] = { {0, 0, 0, 0, 0},
 						 {0, 0, 0, 0, 0}};
 
 int dieHard[5][10] = {	{0, 0, 0, 0, 0, 0, 0, 0, 0, 0},
-								{0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
-								{0, 1, 1, 0, 0, 0, 0, 0, 0, 0},
-								{0, 0, 1, 0, 0, 0, 1, 1, 1, 0},
-								{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
+						{0, 0, 0, 0, 0, 0, 0, 1, 0, 0},
+						{0, 1, 1, 0, 0, 0, 0, 0, 0, 0},
+						{0, 0, 1, 0, 0, 0, 1, 1, 1, 0},
+						{0, 0, 0, 0, 0, 0, 0, 0, 0, 0}};
 
 int acorn[5][10] = {	{0, 0, 0, 0, 0, 0, 0, 0, 0},
-							{0, 0, 1, 0, 0, 0, 0, 0, 0},
-							{0, 0, 0, 0, 1, 0, 0, 0, 0},
-							{0, 1, 1, 0, 0, 1, 1, 1, 0},
-							{0, 0, 0, 0, 0, 0, 0, 0, 0}};
+						{0, 0, 1, 0, 0, 0, 0, 0, 0},
+						{0, 0, 0, 0, 1, 0, 0, 0, 0},
+						{0, 1, 1, 0, 0, 1, 1, 1, 0},
+						{0, 0, 0, 0, 0, 0, 0, 0, 0}};
 
 void evaluateCells(){
 	for(int row = 0; row < cellArrayRows; row++){
@@ -82,6 +82,7 @@ void mallocCellArray(){
 		cellArray[row] = (int *) malloc(cellArrayCols*sizeof(int));
 	}
 }
+
 void freeCellArray(){
 	for(int row = 0; row < cellArrayRows; row++){
 		free(cellArray[row]);
@@ -89,8 +90,10 @@ void freeCellArray(){
 	free(cellArray);
 }
 void instantiateCellArray(){
-	cellArrayRows = getScreenSize()->maxY;
-	cellArrayCols = getScreenSize()->maxX;
+	//cellArrayRows = getScreenSize()->maxY;
+	//cellArrayCols = getScreenSize()->maxX;
+	cellArrayRows = 30;
+	cellArrayCols = 50;
 	mallocCellArray();
 	for(int row = 0; row < cellArrayRows; row++){
 		for(int col = 0; col < cellArrayCols; col++){
@@ -99,6 +102,8 @@ void instantiateCellArray(){
 	}
 }
 
+int getCellRows(){return cellArrayRows;}
+int getCellCols(){return cellArrayCols;}
 
 void insertPreset(cellArrayPresets_t preset){
 	if (preset == e_Random){
@@ -112,29 +117,35 @@ void insertPreset(cellArrayPresets_t preset){
 		}
 	}
 	else{
-		copyPresetToCellArray(preset);
-	}
-}
-
-void copyPresetToCellArray(cellArrayPresets_t preset){
-	int **temp;
-	if (preset == e_rPentomino){
-		temp = rPentomino;
-	}
-	else if(preset == e_dieHard){
-		temp = dieHard;
-	}
-	else if(preset == e_acorn){
-		temp = acorn;
-	}
-	int tempSizeRow = sizeof(temp) / sizeof(temp[0]);
-	int tempSizeCol = sizeof(temp[0])/tempSizeRow;
-
-	for (int offsetR = 0; offsetR < tempSizeRow; offsetR++){
-		for (int offsetC = 0; offsetC < tempSizeCol; offsetC++){
-			cellArray[cellArrayRows/2 + offsetR][cellArrayCols/2 + offsetC] = temp[offsetR][offsetC];
+		if (preset == e_rPentomino){
+			int aSizeRow = sizeof(rPentomino) / sizeof(rPentomino[0]);
+			int aSizeCol = sizeof(rPentomino[0])/sizeof(rPentomino[0][0]);
+			for (int offsetR = 0; offsetR < aSizeRow; offsetR++){
+				for (int offsetC = 0; offsetC < aSizeCol; offsetC++){
+					cellArray[cellArrayRows/2 + offsetR][cellArrayCols/2 + offsetC] = rPentomino[offsetR][offsetC];
+				}
+			}
+		}
+		else if(preset == e_dieHard){
+			int bSizeRow = sizeof(dieHard) / sizeof(dieHard[0]);
+			int bSizeCol = sizeof(dieHard[0])/sizeof(dieHard[0][0]);
+			for (int offsetR = 0; offsetR < bSizeRow; offsetR++){
+				for (int offsetC = 0; offsetC < bSizeCol; offsetC++){
+					cellArray[cellArrayRows/2 + offsetR][cellArrayCols/2 + offsetC] = dieHard[offsetR][offsetC];
+				}
+			}
+		}
+		else if(preset == e_acorn){
+			int cSizeRow = sizeof(acorn) / sizeof(acorn[0]);
+			int cSizeCol = sizeof(acorn[0])/sizeof(acorn[0][0]);
+			for (int offsetR = 0; offsetR < cSizeRow; offsetR++){
+				for (int offsetC = 0; offsetC < cSizeCol; offsetC++){
+					cellArray[cellArrayRows/2 + offsetR][cellArrayCols/2 + offsetC] = acorn[offsetR][offsetC];
+				}
+			}
 		}
 	}
+	writeGridToScreen(cellArray, cellArrayRows, cellArrayCols);
 }
 
 /* Public functions */

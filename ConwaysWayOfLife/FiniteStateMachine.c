@@ -7,7 +7,6 @@ void run(){
 		switch(state){
 			case INIT :
 				initializeWindow();
-				printf("HELLO\n");
 				instantiateCellArray();
 				printHomepage();
 				state = MENU;
@@ -17,6 +16,7 @@ void run(){
 				break;
 			case GAME :
 				evaluateCells();
+				sleep(1);
 				break;
 			case QUIT :
 				freeCellArray();
